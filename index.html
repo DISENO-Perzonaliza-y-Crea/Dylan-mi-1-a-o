@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dylan - Mi Primer Año</title>
     
-    <!-- Metas para redes sociales (usando enlaces directos Raw) -->
+    <!-- Metas para redes sociales -->
     <meta property="og:title" content="Dylan - Mi Primer Año">
     <meta property="og:description" content="¡Estás invitado al 1° año de Dylan!">
     <meta property="og:image" content="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/portada.png">
@@ -27,17 +27,45 @@
             cursor: pointer;
             user-select: none;
         }
+        
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .animate-pulse-soft {
+            animation: pulse-soft 2s infinite;
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-900 text-slate-900 min-h-screen">
 
-    <!-- Elemento de Audio con reproducción automática -->
-    <audio id="bg-music" autoplay loop preload="auto">
+    <!-- Pantalla de Bienvenida para permitir la reproducción de sonido en navegadores móviles -->
+    <div id="welcome-overlay" class="fixed inset-0 z-50 bg-slate-900/90 backdrop-blur-md flex flex-col items-center justify-center p-4 transition-opacity duration-500">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl border-4 border-amber-400">
+            <div class="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4 text-amber-600 text-4xl animate-pulse-soft">
+                🎵
+            </div>
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">¡Invitación Especial!</h2>
+            <p class="text-slate-600 mb-6 text-sm">Estás invitado a celebrar el 1° año de <strong>Dylan</strong> 🎉</p>
+            <button id="enter-btn" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold py-4 px-6 rounded-full text-lg shadow-lg transform transition active:scale-95 animate-pulse-soft">
+                ✉️ Ver Invitación
+            </button>
+        </div>
+    </div>
+
+    <!-- Elemento de Audio optimizado con servidor CDN jsDelivr -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://cdn.jsdelivr.net/gh/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o@main/Alboroto%20en%20La%20Granja%20-%20La%20Granja%20de%20Zen%C3%B3n%205%20%20El%20Reino%20Infantil%20-%20El%20Reino%20Infantil%20(youtube).mp3" type="audio/mpeg">
         <source src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/Alboroto%20en%20La%20Granja%20-%20La%20Granja%20de%20Zen%C3%B3n%205%20%20El%20Reino%20Infantil%20-%20El%20Reino%20Infantil%20(youtube).mp3" type="audio/mpeg">
         Tu navegador no soporta el reproductor de audio.
     </audio>
 
-    <div class="max-w-xl mx-auto relative" id="main-container">
+    <!-- Control Discreto de Silencio (opcional para el usuario) -->
+    <button id="mute-toggle" class="fixed top-4 right-4 z-40 bg-white/80 backdrop-blur-md border border-slate-200 text-slate-800 p-3 rounded-full shadow-md text-sm font-semibold flex items-center gap-2 hover:bg-white transition hidden">
+        <span id="mute-icon">🔊</span>
+    </button>
+
+    <div class="max-w-xl mx-auto relative bg-slate-50" id="main-container">
         <!-- Página 1 -->
         <div class="img-block">
             <img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/1.png" alt="Página 1">
@@ -72,31 +100,52 @@
 
     <script>
         const audio = document.getElementById('bg-music');
+        const overlay = document.getElementById('welcome-overlay');
+        const enterBtn = document.getElementById('enter-btn');
+        const muteToggle = document.getElementById('mute-toggle');
+        const muteIcon = document.getElementById('mute-icon');
 
-        // Intenta reproducir el audio automáticamente al cargar la invitación
-        function playAudio() {
-            audio.play().catch(error => {
-                console.log("Autoplay retenido por política del navegador. Iniciando al interactuar:", error);
+        // Inicia el audio y oculta la ventana emergente
+        function startExperience() {
+            audio.play().then(() => {
+                console.log("Audio reproduciendo con éxito");
+            }).catch(error => {
+                console.log("Error al reproducir audio:", error);
             });
+
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                muteToggle.classList.remove('hidden');
+            }, 500);
         }
 
-        window.addEventListener('DOMContentLoaded', playAudio);
+        enterBtn.addEventListener('click', startExperience);
 
-        // Respaldo: si el navegador bloquea la reproducción automática sin gesto previo, iniciará al primer toque, clic o desplazamiento
-        function startAudioOnInteraction() {
+        // Respaldo en caso de toque fuera del botón
+        function fallbackStart() {
+            if (audio.paused) {
+                startExperience();
+            }
+            document.removeEventListener('click', fallbackStart);
+            document.removeEventListener('touchstart', fallbackStart);
+        }
+
+        document.addEventListener('click', fallbackStart);
+        document.addEventListener('touchstart', fallbackStart);
+
+        // Control de Silencio
+        muteToggle.addEventListener('click', () => {
             if (audio.paused) {
                 audio.play();
+                muteIcon.textContent = '🔊';
+            } else {
+                audio.pause();
+                muteIcon.textContent = '🔇';
             }
-            document.removeEventListener('click', startAudioOnInteraction);
-            document.removeEventListener('touchstart', startAudioOnInteraction);
-            document.removeEventListener('scroll', startAudioOnInteraction);
-        }
+        });
 
-        document.addEventListener('click', startAudioOnInteraction);
-        document.addEventListener('touchstart', startAudioOnInteraction);
-        document.addEventListener('scroll', startAudioOnInteraction);
-
-        // Envío de mensaje por WhatsApp
+        // Enviar WhatsApp
         function sendRSVP() {
             const message = encodeURIComponent(`¡Hola! Confirmo mi asistencia al 1° año de Dylan.`);
             window.open(`https://wa.me/523124154011?text=${message}`, '_blank');
