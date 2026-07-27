@@ -12,6 +12,7 @@
     <meta property="og:type" content="website">
     
     <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
         body { font-family: 'Inter', sans-serif; }
         .img-block { display: block; line-height: 0; }
@@ -29,9 +30,18 @@
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
-    <div class="max-w-xl mx-auto" id="main-container">
+
+    <!-- Elemento de Audio con reproducción automática -->
+    <audio id="bg-music" autoplay loop preload="auto">
+        <source src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/Alboroto%20en%20La%20Granja%20-%20La%20Granja%20de%20Zen%C3%B3n%205%20%20El%20Reino%20Infantil%20-%20El%20Reino%20Infantil%20(youtube).mp3" type="audio/mpeg">
+        Tu navegador no soporta el reproductor de audio.
+    </audio>
+
+    <div class="max-w-xl mx-auto relative" id="main-container">
         <!-- Página 1 -->
-        <div class="img-block"><img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/1.png" alt="Página 1"></div>
+        <div class="img-block">
+            <img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/1.png" alt="Página 1">
+        </div>
         
         <!-- Página 2 -->
         <div class="img-block relative">
@@ -40,12 +50,14 @@
                target="_blank"
                class="fixed-btn bg-orange-500 text-white font-bold rounded-full shadow-lg hover:bg-orange-600 transition text-xl"
                style="left: 161px; top: 574px; width: 264px; height: 80px;">
-               📍 Ver Ubicación
+                📍 Ver Ubicación
             </a>
         </div>
         
         <!-- Página 3 -->
-        <div class="img-block"><img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/3.png" alt="Página 3"></div>
+        <div class="img-block">
+            <img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/3.png" alt="Página 3">
+        </div>
         
         <!-- Página 4 -->
         <div class="img-block relative">
@@ -59,6 +71,32 @@
     </div>
 
     <script>
+        const audio = document.getElementById('bg-music');
+
+        // Intenta reproducir el audio automáticamente al cargar la invitación
+        function playAudio() {
+            audio.play().catch(error => {
+                console.log("Autoplay retenido por política del navegador. Iniciando al interactuar:", error);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', playAudio);
+
+        // Respaldo: si el navegador bloquea la reproducción automática sin gesto previo, iniciará al primer toque, clic o desplazamiento
+        function startAudioOnInteraction() {
+            if (audio.paused) {
+                audio.play();
+            }
+            document.removeEventListener('click', startAudioOnInteraction);
+            document.removeEventListener('touchstart', startAudioOnInteraction);
+            document.removeEventListener('scroll', startAudioOnInteraction);
+        }
+
+        document.addEventListener('click', startAudioOnInteraction);
+        document.addEventListener('touchstart', startAudioOnInteraction);
+        document.addEventListener('scroll', startAudioOnInteraction);
+
+        // Envío de mensaje por WhatsApp
         function sendRSVP() {
             const message = encodeURIComponent(`¡Hola! Confirmo mi asistencia al 1° año de Dylan.`);
             window.open(`https://wa.me/523124154011?text=${message}`, '_blank');
