@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dylan - Mi Primer Año</title>
+    
+    <!-- Metas para redes sociales (usando enlaces directos Raw) -->
+    <meta property="og:title" content="Dylan - Mi Primer Año">
+    <meta property="og:description" content="¡Estás invitado al 1° año de Dylan!">
+    <meta property="og:image" content="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/portada.png">
+    <meta property="og:type" content="website">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .img-block { display: block; line-height: 0; }
+        img { display: block; width: 100%; }
+        .fixed-btn { 
+            position: absolute; 
+            z-index: 50; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+    <div class="max-w-xl mx-auto" id="main-container">
+        <!-- Página 1 -->
+        <div class="img-block"><img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/1.png" alt="Página 1"></div>
+        
+        <!-- Página 2 -->
+        <div class="img-block relative">
+            <img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/2.png" alt="Página 2">
+            <a href="https://www.google.com/maps/place/Sal%C3%B3n+de+eventos+Villa+higuera/@19.2299432,-103.7662127,17z/data=!3m1!4b1!4m6!3m5!1s0x84254f001708580d:0x8d7fac1690f5fdbd!8m2!3d19.2299432!4d-103.7662127!16s%2Fg%2F11xyl6xv22!18m1!1e1" 
+               target="_blank"
+               class="fixed-btn bg-orange-500 text-white font-bold rounded-full shadow-lg hover:bg-orange-600 transition text-xl"
+               style="left: 161px; top: 574px; width: 264px; height: 80px;">
+               📍 Ver Ubicación
+            </a>
+        </div>
+        
+        <!-- Página 3 -->
+        <div class="img-block"><img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/3.png" alt="Página 3"></div>
+        
+        <!-- Página 4 -->
+        <div class="img-block relative">
+            <img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/4.png" alt="Página 4">
+            <button onclick="sendRSVP()" 
+                class="fixed-btn bg-orange-500 text-white font-bold rounded-full shadow-lg hover:bg-orange-600 transition text-xl"
+                style="left: 171px; top: 214px; width: 230px; height: 80px;">
+                Confirmar Asistencia
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function sendRSVP() {
+            const message = encodeURIComponent(`¡Hola! Confirmo mi asistencia al 1° año de Dylan.`);
+            window.open(`https://wa.me/523124154011?text=${message}`, '_blank');
+        }
+    </script>
+</body>
+</html>
