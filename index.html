@@ -15,7 +15,13 @@
 
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .img-block { display: block; line-height: 0; width: 100%; }
+        .img-block { 
+            display: block; 
+            line-height: 0; 
+            width: 100%; 
+            position: relative;
+            container-type: inline-size;
+        }
         img { display: block; width: 100%; height: auto; }
         .fixed-btn { 
             position: absolute; 
@@ -26,6 +32,7 @@
             text-align: center;
             cursor: pointer;
             user-select: none;
+            white-space: nowrap;
         }
         
         @keyframes pulse-soft {
@@ -39,7 +46,6 @@
 </head>
 <body class="bg-blue-900 text-slate-900 min-h-screen flex flex-col items-center justify-start py-0 sm:py-6">
 
-    <!-- Pantalla de Bienvenida para permitir la reproducción de sonido en navegadores móviles -->
     <div id="welcome-overlay" class="fixed inset-0 z-50 bg-blue-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 transition-opacity duration-500">
         <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl border-4 border-amber-400">
             <div class="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4 text-amber-600 text-4xl animate-pulse-soft">
@@ -53,14 +59,12 @@
         </div>
     </div>
 
-    <!-- Elemento de Audio optimizado con servidor CDN jsDelivr -->
     <audio id="bg-music" loop preload="auto">
         <source src="https://cdn.jsdelivr.net/gh/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o@main/Alboroto%20en%20La%20Granja%20-%20La%20Granja%20de%20Zen%C3%B3n%205%20_%20El%20Reino%20Infantil.mp3" type="audio/mpeg">
         <source src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/Alboroto%20en%20La%20Granja%20-%20La%20Granja%20de%20Zen%C3%B3n%205%20_%20El%20Reino%20Infantil.mp3" type="audio/mpeg">
         Tu navegador no soporta el reproductor de audio.
     </audio>
 
-    <!-- Control Discreto de Silencio -->
     <button id="mute-toggle" class="fixed top-4 right-4 z-40 bg-white/80 backdrop-blur-md border border-slate-200 text-slate-800 p-3 rounded-full shadow-md text-sm font-semibold flex items-center gap-2 hover:bg-white transition hidden">
         <span id="mute-icon">🔊</span>
     </button>
@@ -76,8 +80,8 @@
             <img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/2.png" alt="Página 2">
             <a href="https://www.google.com/maps/place/Sal%C3%B3n+de+eventos+Villa+higuera/@19.2299432,-103.7662127,17z/data=!3m1!4b1!4m6!3m5!1s0x84254f001708580d:0x8d7fac1690f5fdbd!8m2!3d19.2299432!4d-103.7662127!16s%2Fg%2F11xyl6xv22!18m1!1e1" 
                target="_blank"
-               class="fixed-btn bg-orange-500 text-white font-bold rounded-full shadow-lg hover:bg-orange-600 transition text-xl"
-               style="left: 161px; top: 574px; width: 264px; height: 80px;">
+               class="fixed-btn bg-orange-500 text-white font-bold rounded-full shadow-lg hover:bg-orange-600 transition text-sm sm:text-lg md:text-xl py-2 sm:py-3 px-4 sm:px-6"
+               style="left: 50%; top: 62%; width: 48%; transform: translate(-50%, -50%);">
                 📍 Ver Ubicación
             </a>
         </div>
@@ -91,8 +95,8 @@
         <div class="img-block relative">
             <img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/4.png" alt="Página 4">
             <button onclick="sendRSVP()" 
-                class="fixed-btn bg-orange-500 text-white font-bold rounded-full shadow-lg hover:bg-orange-600 transition text-xl"
-                style="left: 171px; top: 214px; width: 230px; height: 80px;">
+                class="fixed-btn bg-orange-500 text-white font-bold rounded-full shadow-lg hover:bg-orange-600 transition text-sm sm:text-lg md:text-xl py-2 sm:py-3 px-4 sm:px-6"
+                style="left: 50%; top: 27%; width: 45%; transform: translate(-50%, -50%);">
                 Confirmar Asistencia
             </button>
         </div>
