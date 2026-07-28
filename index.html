@@ -113,42 +113,11 @@
         <source src="https://media.githubusercontent.com/media/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/Alboroto%20en%20La%20Granja%20-%20La%20Granja%20de%20Zen%C3%B3n%205%20%20El%20Reino%20Infantil%20-%20El%20Reino%20Infantil%20(youtube).mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Botón Flotante para Controlar el Audio (Play / Pause) -->
-    <button id="mute-toggle" title="Control de audio" class="fixed top-4 right-4 z-40 bg-amber-100/90 backdrop-blur-md border border-amber-400 text-amber-900 w-11 h-11 rounded-full shadow-xl flex items-center justify-center text-lg hover:scale-105 active:scale-95 transition hidden">
-        <span id="mute-icon">🔊</span>
+    <!-- Botón Flotante para Controlar la Música (Play / Pause) -->
+    <button id="mute-toggle" title="Control de audio" class="fixed top-4 right-4 z-40 bg-amber-500 hover:bg-amber-600 text-white font-extrabold px-3.5 py-2 rounded-full shadow-2xl border-2 border-white flex items-center justify-center gap-2 text-xs sm:text-sm hover:scale-105 active:scale-95 transition-all">
+        <span id="mute-icon" class="text-base">🎵</span>
+        <span id="mute-text">Música</span>
     </button>
-
-    <!-- Welcome Screen Modal overlay -->
-    <div id="welcome-overlay" class="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-xl flex flex-col items-center justify-center p-4 transition-all duration-700 opacity-100">
-        <div class="glass-card rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl border-4 border-amber-400 relative overflow-hidden animate-float">
-            <!-- Background Decorative Stars -->
-            <div class="absolute -top-10 -right-10 w-28 h-28 bg-amber-300/30 rounded-full blur-2xl"></div>
-            <div class="absolute -bottom-10 -left-10 w-28 h-28 bg-orange-400/30 rounded-full blur-2xl"></div>
-
-            <div class="w-24 h-24 bg-gradient-to-tr from-amber-400 to-orange-400 rounded-full flex items-center justify-center mx-auto mb-5 text-white text-4xl shadow-xl shadow-amber-500/30 border-4 border-white animate-pulse-soft">
-                🐥
-            </div>
-
-            <span class="inline-block bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-amber-300">
-                ¡Granja de Zenón! 🎉
-            </span>
-
-            <h1 class="text-3xl font-extrabold text-slate-800 mb-1 tracking-tight">
-                Dylan
-            </h1>
-            <p class="text-amber-600 font-bold text-lg mb-4">¡Cumple Mi 1° Año!</p>
-
-            <p class="text-slate-600 mb-6 text-sm leading-relaxed">
-                Acompáñanos a celebrar este día tan especial lleno de diversión, alegría y sorpresas.
-            </p>
-
-            <button id="enter-btn" class="w-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white font-black py-4 px-6 rounded-2xl text-lg shadow-xl shadow-orange-500/40 transform transition active:scale-95 flex items-center justify-center gap-3 border-b-4 border-orange-700">
-                <i class="fa-solid fa-envelope-open-text text-xl"></i>
-                <span>Ver Invitación</span>
-            </button>
-            <p class="text-xs text-slate-400 mt-3 font-medium">Pulsa para abrir la invitación</p>
-        </div>
-    </div>
 
     <!-- Main Interactive Container -->
     <main class="w-full max-w-lg mx-auto relative bg-slate-900 shadow-2xl min-h-screen my-0 md:my-6 md:rounded-3xl overflow-hidden border-0 md:border-4 md:border-amber-400/40" id="main-container">
@@ -159,8 +128,18 @@
         </div>
 
         <!-- Page 1: Hero Cover Image -->
-        <section class="img-block relative group">
+        <section class="img-block relative group" id="sec-page-1">
             <img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/1.png" alt="Página 1 - Dylan 1° Año" loading="eager" onerror="this.onerror=null; this.src='https://placehold.co/600x800/f59e0b/ffffff?text=Dylan+Mi+1er+A%C3%B1o';">
+            
+            <!-- Botón de Reproducción de Música en la parte inferior de la Página 1 -->
+            <button id="btn-play-page1" onclick="playAudioStream()" 
+                    class="overlay-btn bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white font-black rounded-full shadow-2xl border-2 border-white/80 text-xs sm:text-sm md:text-base animate-pulse-soft"
+                    style="left: 18%; top: 82%; width: 64%; height: 9%;">
+               <span class="flex items-center justify-center gap-2 px-2">
+                   <i class="fa-solid fa-music text-amber-200 text-lg"></i>
+                   <span>🎵 Reproducir Música de La Granja</span>
+               </span>
+            </button>
         </section>
 
         <!-- Page 2: Location Information -->
@@ -260,8 +239,7 @@
         const audio = document.getElementById('bg-music');
         const muteToggle = document.getElementById('mute-toggle');
         const muteIcon = document.getElementById('mute-icon');
-        const overlay = document.getElementById('welcome-overlay');
-        const enterBtn = document.getElementById('enter-btn');
+        const muteText = document.getElementById('mute-text');
         const rsvpModal = document.getElementById('rsvp-modal');
         const modalBox = document.getElementById('modal-box');
 
@@ -271,6 +249,20 @@
         // Web Audio API Fallback Synthesizer for network blocks
         let synthInterval = null;
         let audioCtx = null;
+
+        function updateMusicState(isPlaying) {
+            if (isPlaying) {
+                muteIcon.textContent = '🔊';
+                if (muteText) muteText.textContent = 'Pausar';
+                muteToggle.classList.add('bg-amber-500', 'text-white');
+                muteToggle.classList.remove('bg-slate-700', 'text-slate-200');
+            } else {
+                muteIcon.textContent = '🔇';
+                if (muteText) muteText.textContent = 'Música';
+                muteToggle.classList.remove('bg-amber-500', 'text-white');
+                muteToggle.classList.add('bg-slate-700', 'text-slate-200');
+            }
+        }
 
         function playSynthFarmMelody() {
             try {
@@ -326,64 +318,33 @@
 
             if (promise !== undefined) {
                 promise.then(() => {
-                    muteToggle.classList.remove('hidden');
-                    muteIcon.textContent = '🔊';
+                    updateMusicState(true);
+                    if (typeof confetti === 'function') {
+                        confetti({
+                            particleCount: 50,
+                            spread: 60,
+                            origin: { y: 0.3 }
+                        });
+                    }
                 }).catch(err => {
                     console.warn("MP3 playback blocked/failed. Activating synth fallback.", err);
                     playSynthFarmMelody();
-                    muteToggle.classList.remove('hidden');
-                    muteIcon.textContent = '🔊';
+                    updateMusicState(true);
                 });
             }
-        }
-
-        // Start Experience on Welcome Overlay Interaction
-        function startExperience() {
-            // Reproducir música inmediatamente al pulsar "Ver Invitación"
-            playAudioStream();
-
-            // Trigger visual confetti explosion
-            if (typeof confetti === 'function') {
-                confetti({
-                    particleCount: 80,
-                    spread: 70,
-                    origin: { y: 0.6 }
-                });
-            }
-
-            // Hide overlay smoothly
-            overlay.classList.add('opacity-0', 'pointer-events-none');
-            setTimeout(() => {
-                overlay.style.display = 'none';
-            }, 600);
         }
 
         // Alternar reproducción / silencio
-        muteToggle.addEventListener('click', () => {
-            if (audio && !audio.paused) {
-                audio.pause();
+        muteToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if ((audio && !audio.paused) || synthInterval) {
+                if (audio) audio.pause();
                 stopSynthMelody();
-                muteIcon.textContent = '🔇';
-            } else if (synthInterval) {
-                stopSynthMelody();
-                muteIcon.textContent = '🔇';
+                updateMusicState(false);
             } else {
                 playAudioStream();
             }
         });
-
-        enterBtn.addEventListener('click', startExperience);
-
-        // Fallback touch/click listeners to ensure audio context unlock on any interaction
-        function fallbackStart() {
-            if (overlay.style.display !== 'none') {
-                startExperience();
-            }
-            document.removeEventListener('click', fallbackStart);
-            document.removeEventListener('touchstart', fallbackStart);
-        }
-        document.addEventListener('click', fallbackStart);
-        document.addEventListener('touchstart', fallbackStart);
 
         // RSVP Modal Functions
         function openRsvpModal() {
