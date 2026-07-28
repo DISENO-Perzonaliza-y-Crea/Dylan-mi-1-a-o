@@ -1,379 +1,154 @@
 <!DOCTYPE html>
-<html lang="es" class="h-full">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>Dylan - Mi Primer Año 🥳</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dylan - Mi Primer Año</title>
     
-    <!-- Metas para redes sociales (Open Graph) -->
-    <meta property="og:title" content="Dylan - Mi Primer Año 🎈">
-    <meta property="og:description" content="¡Estás cordialmente invitado a celebrar el 1° añito de Dylan! Haz clic para ver la invitación interactiva.">
+    <!-- Metas para redes sociales -->
+    <meta property="og:title" content="Dylan - Mi Primer Año">
+    <meta property="og:description" content="¡Estás invitado al 1° año de Dylan!">
     <meta property="og:image" content="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/portada.png">
     <meta property="og:type" content="website">
-
-    <!-- Tailwind CSS CDN -->
+    
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Google Fonts & FontAwesome -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Canvas Confetti Library -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
     <style>
-        body { 
-            font-family: 'Quicksand', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-        h1, h2, h3, .font-heading {
-            font-family: 'Fredoka', cursive;
-        }
-        
-        .img-block { 
-            display: block; 
-            line-height: 0; 
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-        img { 
-            display: block; 
-            width: 100%; 
-            height: auto; 
-        }
-
-        /* Overlay buttons positioned by exact percentages for responsiveness */
-        .overlay-btn { 
+        body { font-family: 'Inter', sans-serif; }
+        .img-block { display: block; line-height: 0; width: 100%; }
+        img { display: block; width: 100%; height: auto; }
+        .fixed-btn { 
             position: absolute; 
-            z-index: 30; 
+            z-index: 50; 
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             cursor: pointer;
             user-select: none;
-            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-
-        .overlay-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 24px -6px rgba(249, 115, 22, 0.5);
-        }
-
-        .overlay-btn:active {
-            transform: scale(0.95);
-        }
-
+        
         @keyframes pulse-soft {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.06); }
+            50% { transform: scale(1.05); }
         }
         .animate-pulse-soft {
-            animation: pulse-soft 2.2s infinite ease-in-out;
-        }
-
-        @keyframes float-gentle {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
-        .animate-float {
-            animation: float-gentle 3.5s infinite ease-in-out;
-        }
-
-        /* Glassmorphism styling */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1e293b;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #f97316;
-            border-radius: 9999px;
+            animation: pulse-soft 2s infinite;
         }
     </style>
 </head>
-<body class="bg-gradient-to-b from-slate-950 via-slate-900 to-amber-950 text-slate-800 min-h-screen flex flex-col items-center justify-start antialiased selection:bg-amber-400 selection:text-amber-900">
+<body class="bg-blue-900 text-slate-900 min-h-screen flex flex-col items-center justify-start py-0 sm:py-6">
 
-    <!-- Elemento de Audio de Fondo Optimizado -->
-    <audio id="bg-music" loop preload="auto" playsinline webkit-playsinline>
-        <source src="https://cdn.jsdelivr.net/gh/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o@main/Alboroto%20en%20La%20Granja%20-%20La%20Granja%20de%20Zen%C3%B3n%205%20%20El%20Reino%20Infantil%20-%20El%20Reino%20Infantil%20(youtube).mp3" type="audio/mpeg">
-        <source src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/Alboroto%20en%20La%20Granja%20-%20La%20Granja%20de%20Zen%C3%B3n%205%20%20El%20Reino%20Infantil%20-%20El%20Reino%20Infantil%20(youtube).mp3" type="audio/mpeg">
-        <source src="https://media.githubusercontent.com/media/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/Alboroto%20en%20La%20Granja%20-%20La%20Granja%20de%20Zen%C3%B3n%205%20%20El%20Reino%20Infantil%20-%20El%20Reino%20Infantil%20(youtube).mp3" type="audio/mpeg">
+    <!-- Pantalla de Bienvenida para permitir la reproducción de sonido en navegadores móviles -->
+    <div id="welcome-overlay" class="fixed inset-0 z-50 bg-blue-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 transition-opacity duration-500">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl border-4 border-amber-400">
+            <div class="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4 text-amber-600 text-4xl animate-pulse-soft">
+                🎵
+            </div>
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">¡Invitación Especial!</h2>
+            <p class="text-slate-600 mb-6 text-sm">Estás invitado a celebrar el 1° año de <strong>Dylan</strong> 🎉</p>
+            <button id="enter-btn" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold py-4 px-6 rounded-full text-lg shadow-lg transform transition active:scale-95 animate-pulse-soft">
+                ✉️ Ver Invitación
+            </button>
+        </div>
+    </div>
+
+    <!-- Elemento de Audio optimizado con servidor CDN jsDelivr -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://cdn.jsdelivr.net/gh/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o@main/Alboroto%20en%20La%20Granja%20-%20La%20Granja%20de%20Zen%C3%B3n%205%20_%20El%20Reino%20Infantil.mp3" type="audio/mpeg">
+        <source src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/Alboroto%20en%20La%20Granja%20-%20La%20Granja%20de%20Zen%C3%B3n%205%20_%20El%20Reino%20Infantil.mp3" type="audio/mpeg">
+        Tu navegador no soporta el reproductor de audio.
     </audio>
 
-    <!-- Botón Flotante para Controlar la Música (Play / Pause) -->
-    <button id="mute-toggle" title="Control de audio" class="fixed top-4 right-4 z-40 bg-amber-500 hover:bg-amber-600 text-white font-extrabold px-3.5 py-2 rounded-full shadow-2xl border-2 border-white flex items-center justify-center gap-2 text-xs sm:text-sm hover:scale-105 active:scale-95 transition-all">
-        <span id="mute-icon" class="text-base">🎵</span>
-        <span id="mute-text">Música</span>
+    <!-- Control Discreto de Silencio -->
+    <button id="mute-toggle" class="fixed top-4 right-4 z-40 bg-white/80 backdrop-blur-md border border-slate-200 text-slate-800 p-3 rounded-full shadow-md text-sm font-semibold flex items-center gap-2 hover:bg-white transition hidden">
+        <span id="mute-icon">🔊</span>
     </button>
 
-    <!-- Main Interactive Container -->
-    <main class="w-full max-w-lg mx-auto relative bg-slate-900 shadow-2xl min-h-screen my-0 md:my-6 md:rounded-3xl overflow-hidden border-0 md:border-4 md:border-amber-400/40" id="main-container">
-
-        <!-- Banner Header Badge -->
-        <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white text-center py-2 px-4 font-bold text-xs tracking-wider uppercase flex items-center justify-center gap-2 shadow-md z-20 relative">
-            <span>🌾 ¡El Reino de Dylan! 🚜</span>
+    <div class="w-full max-w-xl mx-auto relative bg-slate-50 shadow-2xl rounded-none sm:rounded-2xl overflow-hidden" id="main-container">
+        <!-- Página 1 -->
+        <div class="img-block">
+            <img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/1.png" alt="Página 1">
         </div>
-
-        <!-- Page 1: Hero Cover Image -->
-        <section class="img-block relative group" id="sec-page-1">
-            <img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/1.png" alt="Página 1 - Dylan 1° Año" loading="eager" onerror="this.onerror=null; this.src='https://placehold.co/600x800/f59e0b/ffffff?text=Dylan+Mi+1er+A%C3%B1o';">
-            
-            <!-- Botón de Reproducción de Música en la parte inferior de la Página 1 -->
-            <button id="btn-play-page1" onclick="playAudioStream()" 
-                    class="overlay-btn bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white font-black rounded-full shadow-2xl border-2 border-white/80 text-xs sm:text-sm md:text-base animate-pulse-soft"
-                    style="left: 18%; top: 82%; width: 64%; height: 9%;">
-               <span class="flex items-center justify-center gap-2 px-2">
-                   <i class="fa-solid fa-music text-amber-200 text-lg"></i>
-                   <span>🎵 Reproducir Música de La Granja</span>
-               </span>
-            </button>
-        </section>
-
-        <!-- Page 2: Location Information -->
-        <section class="img-block relative group" id="sec-page-2">
-            <img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/2.png" alt="Página 2 - Ubicación del Evento" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x800/f97316/ffffff?text=Ubicacion+Salon+Villa+Higuera';">
-            
-            <!-- Fixed Responsive Overlay Button for Google Maps -->
-            <a id="btn-map" href="https://www.google.com/maps/place/Sal%C3%B3n+de+eventos+Villa+higuera/@19.2299432,-103.7662127,17z/data=!3m1!4b1!4m6!3m5!1s0x84254f001708580d:0x8d7fac1690f5fdbd!8m2!3d19.2299432!4d-103.7662127!16s%2Fg%2F11xyl6xv22!18m1!1e1" 
+        
+        <!-- Página 2 -->
+        <div class="img-block relative">
+            <img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/2.png" alt="Página 2">
+            <a href="https://www.google.com/maps/place/Sal%C3%B3n+de+eventos+Villa+higuera/@19.2299432,-103.7662127,17z/data=!3m1!4b1!4m6!3m5!1s0x84254f001708580d:0x8d7fac1690f5fdbd!8m2!3d19.2299432!4d-103.7662127!16s%2Fg%2F11xyl6xv22!18m1!1e1" 
                target="_blank"
-               rel="noopener noreferrer"
-               class="overlay-btn bg-gradient-to-r from-orange-500 to-amber-500 text-white font-black rounded-full shadow-2xl border-2 border-white/80 text-sm sm:text-base md:text-lg animate-pulse-soft"
-               style="left: 26%; top: 54%; width: 48%; height: 11%;">
-               <span class="flex items-center justify-center gap-2 px-2" id="btn-map-text">
-                   <i class="fa-solid fa-location-dot text-amber-200"></i>
-                   <span>Ver Ubicación</span>
-               </span>
+               class="fixed-btn bg-orange-500 text-white font-bold rounded-full shadow-lg hover:bg-orange-600 transition text-xl"
+               style="left: 161px; top: 574px; width: 264px; height: 80px;">
+                📍 Ver Ubicación
             </a>
-        </section>
-
-        <!-- Page 3: Event Details & Itinerary -->
-        <section class="img-block relative">
-            <img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/3.png" alt="Página 3 - Detalles de la Fiestita" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x800/eab308/ffffff?text=Detalles+del+Evento';">
-        </section>
-
-        <!-- Page 4: RSVP Section -->
-        <section class="img-block relative group" id="sec-page-4">
-            <img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/4.png" alt="Página 4 - Confirmar Asistencia" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x800/f97316/ffffff?text=Confirmar+Asistencia+WhatsApp';">
-            
-            <!-- Fixed Responsive Overlay Button for RSVP -->
-            <button id="btn-rsvp" onclick="openRsvpModal()" 
-                    class="overlay-btn bg-gradient-to-r from-orange-500 to-amber-500 text-white font-black rounded-full shadow-2xl border-2 border-white/80 text-xs sm:text-sm md:text-base animate-pulse-soft"
-                    style="left: 28%; top: 25%; width: 44%; height: 10%;">
-               <span class="flex items-center justify-center gap-1.5 px-2" id="btn-rsvp-text">
-                   <i class="fa-brands fa-whatsapp text-green-300 text-lg"></i>
-                   <span>Confirmar Asistencia</span>
-               </span>
+        </div>
+        
+        <!-- Página 3 -->
+        <div class="img-block">
+            <img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/3.png" alt="Página 3">
+        </div>
+        
+        <!-- Página 4 -->
+        <div class="img-block relative">
+            <img src="https://raw.githubusercontent.com/DISENO-Perzonaliza-y-Crea/Dylan-mi-1-a-o/main/4.png" alt="Página 4">
+            <button onclick="sendRSVP()" 
+                class="fixed-btn bg-orange-500 text-white font-bold rounded-full shadow-lg hover:bg-orange-600 transition text-xl"
+                style="left: 171px; top: 214px; width: 230px; height: 80px;">
+                Confirmar Asistencia
             </button>
-        </section>
-
-        <!-- Footer Credits -->
-        <footer class="bg-slate-950 text-slate-600 text-center py-4 text-xs border-t border-slate-800">
-            <p>© Dylan - Mi Primer Año 🎉 | Creado con ❤️</p>
-        </footer>
-    </main>
-
-    <!-- RSVP Interactive Form Modal -->
-    <div id="rsvp-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 transition-all duration-300 opacity-0 pointer-events-none">
-        <div class="glass-card rounded-3xl p-6 max-w-md w-full shadow-2xl border-2 border-amber-400/50 transform transition-all duration-300 scale-90 relative" id="modal-box">
-            <button onclick="closeRsvpModal()" class="absolute top-4 right-4 w-9 h-9 bg-slate-200 text-slate-700 hover:bg-slate-300 rounded-full flex items-center justify-center font-bold text-lg transition">
-                ✕
-            </button>
-
-            <div class="flex items-center gap-3 mb-4">
-                <div class="w-12 h-12 bg-amber-100 rounded-2xl flex items-center justify-center text-amber-600 text-2xl">
-                    💌
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-slate-800">Confirmar Asistencia</h3>
-                    <p class="text-slate-500 text-xs">Completa los datos para enviar tu pase por WhatsApp</p>
-                </div>
-            </div>
-
-            <form id="rsvp-form" onsubmit="handleFormSubmit(event)" class="space-y-4 text-left">
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nombre Completo *</label>
-                    <input type="text" id="guest-name" required placeholder="Ej. Familia Rodríguez" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none text-sm text-slate-800 bg-white">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Número de Asistentes *</label>
-                    <select id="guest-count" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none text-sm text-slate-800 bg-white">
-                        <option value="1 persona">1 Persona</option>
-                        <option value="2 personas" selected>2 Personas</option>
-                        <option value="3 personas">3 Personas</option>
-                        <option value="4 personas">4 Personas</option>
-                        <option value="Familia (5+ personas)">Familia (5+ personas)</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Mensaje para Dylan (Opcional)</label>
-                    <textarea id="guest-msg" rows="2" placeholder="¡Felicidades Dylan! Nos vemos en la granja 🎉" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none text-sm text-slate-800 bg-white resize-none"></textarea>
-                </div>
-
-                <div class="pt-2">
-                    <button type="submit" class="w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-bold py-3.5 px-6 rounded-xl text-base shadow-lg flex items-center justify-center gap-2 transition active:scale-95">
-                        <i class="fa-brands fa-whatsapp text-xl"></i>
-                        <span>Enviar WhatsApp</span>
-                    </button>
-                </div>
-            </form>
         </div>
     </div>
 
     <script>
-        // DOM Elements
         const audio = document.getElementById('bg-music');
+        const overlay = document.getElementById('welcome-overlay');
+        const enterBtn = document.getElementById('enter-btn');
         const muteToggle = document.getElementById('mute-toggle');
         const muteIcon = document.getElementById('mute-icon');
-        const muteText = document.getElementById('mute-text');
-        const rsvpModal = document.getElementById('rsvp-modal');
-        const modalBox = document.getElementById('modal-box');
 
-        // Target WhatsApp Phone
-        const PHONE_NUMBER = "523124154011";
+        // Inicia el audio y oculta la ventana emergente
+        function startExperience() {
+            audio.play().then(() => {
+                console.log("Audio reproduciendo con éxito");
+            }).catch(error => {
+                console.log("Error al reproducir audio:", error);
+            });
 
-        // Web Audio API Fallback Synthesizer for network blocks
-        let synthInterval = null;
-        let audioCtx = null;
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                muteToggle.classList.remove('hidden');
+            }, 500);
+        }
 
-        function updateMusicState(isPlaying) {
-            if (isPlaying) {
+        enterBtn.addEventListener('click', startExperience);
+
+        // Respaldo en caso de toque fuera del botón
+        function fallbackStart() {
+            if (audio.paused) {
+                startExperience();
+            }
+            document.removeEventListener('click', fallbackStart);
+            document.removeEventListener('touchstart', fallbackStart);
+        }
+
+        document.addEventListener('click', fallbackStart);
+        document.addEventListener('touchstart', fallbackStart);
+
+        // Control de Silencio
+        muteToggle.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
                 muteIcon.textContent = '🔊';
-                if (muteText) muteText.textContent = 'Pausar';
-                muteToggle.classList.add('bg-amber-500', 'text-white');
-                muteToggle.classList.remove('bg-slate-700', 'text-slate-200');
             } else {
+                audio.pause();
                 muteIcon.textContent = '🔇';
-                if (muteText) muteText.textContent = 'Música';
-                muteToggle.classList.remove('bg-amber-500', 'text-white');
-                muteToggle.classList.add('bg-slate-700', 'text-slate-200');
-            }
-        }
-
-        function playSynthFarmMelody() {
-            try {
-                if (!audioCtx) {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                }
-                if (audioCtx.state === 'suspended') {
-                    audioCtx.resume();
-                }
-                
-                const notes = [261.63, 329.63, 392.00, 523.25, 392.00, 329.63]; // C E G C G E
-                let step = 0;
-
-                if (synthInterval) clearInterval(synthInterval);
-
-                synthInterval = setInterval(() => {
-                    if (!audioCtx || audioCtx.state !== 'running') return;
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(notes[step % notes.length], audioCtx.currentTime);
-                    
-                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
-                    
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-                    
-                    osc.start();
-                    osc.stop(audioCtx.currentTime + 0.3);
-                    step++;
-                }, 350);
-            } catch (e) {
-                console.log("Audio synth error:", e);
-            }
-        }
-
-        function stopSynthMelody() {
-            if (synthInterval) {
-                clearInterval(synthInterval);
-                synthInterval = null;
-            }
-        }
-
-        // Play audio directly on user gesture
-        function playAudioStream() {
-            if (!audio) return;
-            
-            // Force reload & attempt play
-            audio.load();
-            const promise = audio.play();
-
-            if (promise !== undefined) {
-                promise.then(() => {
-                    updateMusicState(true);
-                    if (typeof confetti === 'function') {
-                        confetti({
-                            particleCount: 50,
-                            spread: 60,
-                            origin: { y: 0.3 }
-                        });
-                    }
-                }).catch(err => {
-                    console.warn("MP3 playback blocked/failed. Activating synth fallback.", err);
-                    playSynthFarmMelody();
-                    updateMusicState(true);
-                });
-            }
-        }
-
-        // Alternar reproducción / silencio
-        muteToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if ((audio && !audio.paused) || synthInterval) {
-                if (audio) audio.pause();
-                stopSynthMelody();
-                updateMusicState(false);
-            } else {
-                playAudioStream();
             }
         });
 
-        // RSVP Modal Functions
-        function openRsvpModal() {
-            rsvpModal.classList.remove('opacity-0', 'pointer-events-none');
-            modalBox.classList.remove('scale-90');
-            modalBox.classList.add('scale-100');
-        }
-
-        function closeRsvpModal() {
-            modalBox.classList.remove('scale-100');
-            modalBox.classList.add('scale-90');
-            rsvpModal.classList.add('opacity-0', 'pointer-events-none');
-        }
-
-        // Send RSVP via Direct WhatsApp Link
-        function handleFormSubmit(e) {
-            e.preventDefault();
-            const name = document.getElementById('guest-name').value.trim();
-            const count = document.getElementById('guest-count').value;
-            const msg = document.getElementById('guest-msg').value.trim();
-
-            let fullMsg = `¡Hola! Confirmo mi asistencia al 1° año de Dylan 🎉\n\n📌 *Nombre:* ${name}\n👥 *Asistentes:* ${count}`;
-            if (msg) {
-                fullMsg += `\n💬 *Mensaje:* ${msg}`;
-            }
-
-            const message = encodeURIComponent(fullMsg);
-            window.open(`https://wa.me/${PHONE_NUMBER}?text=${message}`, '_blank');
-            closeRsvpModal();
+        // Enviar WhatsApp
+        function sendRSVP() {
+            const message = encodeURIComponent(`¡Hola! Confirmo mi asistencia al 1° año de Dylan.`);
+            window.open(`https://wa.me/523124154011?text=${message}`, '_blank');
         }
     </script>
 </body>
